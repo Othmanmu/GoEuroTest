@@ -1,0 +1,1 @@
+- some methods in PokerManager should be private , but it public for testing purpose.
