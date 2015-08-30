@@ -1,0 +1,3 @@
+[submodule "PokerHand/documents"]
+	path = PokerHand/documents
+	url = ../PokerHand.git
