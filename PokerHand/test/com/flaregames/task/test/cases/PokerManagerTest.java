@@ -43,6 +43,8 @@ public class PokerManagerTest {
         int[] reversedValues = {6, 5, 4, 3, 2};
         expResult = false;
         result = instance.isConsecutive(reversedValues);
+        result = instance.isConsecutive(reversedValues);
+        result = instance.isConsecutive(reversedValues);
         assertEquals(expResult, result);
 
         int[] randomValues = {2, 3, 8, 2, 1};
@@ -74,6 +76,60 @@ public class PokerManagerTest {
         expResult = false;
         result = instance.isSameSuite(otherSuite);
         assertEquals(expResult, result);
+
+    }
+
+    /**
+     * Test of countSameValues method, of class PokerManager.
+     */
+    @Test
+    public void testCountSameValues() {
+        System.out.println("testCountSameValues");
+        int[] values = {1, 6, 9, 3, 4};
+        PokerManager instance = new PokerManager();
+
+        int result = instance.countSameValues(values, true);
+        assertEquals(1, result);
+
+        int[] twoValues = {1, 1, 9, 3, 4};
+        result = instance.countSameValues(twoValues, true);
+        assertEquals(2, result);
+
+        int[] threeValues = {1, 1, 9, 3, 1};
+        result = instance.countSameValues(threeValues, true);
+        assertEquals(3, result);
+
+        int[] fourValues = {1, 1, 1, 3, 1};
+        result = instance.countSameValues(fourValues, true);
+        assertEquals(4, result);
+    }
+
+    /**
+     * Test of countPairs method, of class PokerManager.
+     */
+    @Test
+    public void testCountPairs() {
+        System.out.println("testCountPairs");
+        int[] values = {1, 6, 9, 3, 4};
+        PokerManager instance = new PokerManager();
+
+        int result = instance.countPairs(values);
+        assertEquals(0, result);
+
+        int[] oneValues = {1, 6, 9, 1, 4};
+
+        result = instance.countPairs(oneValues);
+        assertEquals(1, result);
+
+        int[] oneFakeValues = {1, 1, 9, 1, 4};
+
+        result = instance.countPairs(oneFakeValues);
+        assertEquals(0, result);
+        
+        int[] twoValues = {1, 1, 9, 1, 1};
+
+        result = instance.countPairs(twoValues);
+        assertEquals(2, result);
 
     }
 
@@ -114,17 +170,16 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card(9, "C");
         handCards.add(card);
-        
+
         Hand hand = new Hand(handCards);
         PokerManager instance = new PokerManager();
         Hand.Rank expResult = Hand.Rank.STRAIGHT_FLSUH;
-        
+
         Hand.Rank result = instance.getRank(hand);
         assertEquals(expResult, result);
-     
+
     }
-   
-    
+
     /**
      * Test of getRank method, of class PokerManager.
      */
@@ -144,16 +199,16 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card(9, "C");
         handCards.add(card);
-        
+
         Hand hand = new Hand(handCards);
         PokerManager instance = new PokerManager();
         Hand.Rank expResult = Hand.Rank.STRAIGHT;
-        
+
         Hand.Rank result = instance.getRank(hand);
         assertEquals(expResult, result);
-     
+
     }
-    
+
     /**
      * Test of getRank method, of class PokerManager.
      */
@@ -173,16 +228,16 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card(9, "C");
         handCards.add(card);
-        
+
         Hand hand = new Hand(handCards);
         PokerManager instance = new PokerManager();
         Hand.Rank expResult = Hand.Rank.FLUSH;
-        
+
         Hand.Rank result = instance.getRank(hand);
         assertEquals(expResult, result);
-     
+
     }
-    
+
     /**
      * Test of getRank method, of class PokerManager.
      */
@@ -202,18 +257,17 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card(9, "C");
         handCards.add(card);
-        
+
         Hand hand = new Hand(handCards);
         PokerManager instance = new PokerManager();
         Hand.Rank expResult = Hand.Rank.FOUR_OF_KIND;
-        
+
         Hand.Rank result = instance.getRank(hand);
         assertEquals(expResult, result);
-     
+
     }
-    
-    
-      /**
+
+    /**
      * Test of getRank method, of class PokerManager.
      */
     @Test
@@ -232,17 +286,17 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card(4, "S");
         handCards.add(card);
-        
+
         Hand hand = new Hand(handCards);
         PokerManager instance = new PokerManager();
         Hand.Rank expResult = Hand.Rank.THREE_OF_KIND;
-        
+
         Hand.Rank result = instance.getRank(hand);
         assertEquals(expResult, result);
-     
+
     }
-    
-      /**
+
+    /**
      * Test of getRank method, of class PokerManager.
      */
     @Test
@@ -261,16 +315,17 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card(4, "S");
         handCards.add(card);
-        
+
         Hand hand = new Hand(handCards);
         PokerManager instance = new PokerManager();
         Hand.Rank expResult = Hand.Rank.FULL_HOUSE;
-        
+
         Hand.Rank result = instance.getRank(hand);
         assertEquals(expResult, result);
-     
+
     }
-      /**
+
+    /**
      * Test of getRank method, of class PokerManager.
      */
     @Test
@@ -289,17 +344,17 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card(2, "S");
         handCards.add(card);
-        
+
         Hand hand = new Hand(handCards);
         PokerManager instance = new PokerManager();
         Hand.Rank expResult = Hand.Rank.PAIR;
-        
+
         Hand.Rank result = instance.getRank(hand);
         assertEquals(expResult, result);
-     
+
     }
-    
-     /**
+
+    /**
      * Test of getRank method, of class PokerManager.
      */
     @Test
@@ -318,16 +373,17 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card(2, "S");
         handCards.add(card);
-        
+
         Hand hand = new Hand(handCards);
         PokerManager instance = new PokerManager();
         Hand.Rank expResult = Hand.Rank.TWO_PAIRS;
-        
+
         Hand.Rank result = instance.getRank(hand);
         assertEquals(expResult, result);
-     
+
     }
-     /**
+
+    /**
      * Test of getRank method, of class PokerManager.
      */
     @Test
@@ -346,14 +402,14 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card(3, "S");
         handCards.add(card);
-        
+
         Hand hand = new Hand(handCards);
         PokerManager instance = new PokerManager();
         Hand.Rank expResult = Hand.Rank.HIGH_CARD;
-        
+
         Hand.Rank result = instance.getRank(hand);
         assertEquals(expResult, result);
-     
+
     }
 
 }
