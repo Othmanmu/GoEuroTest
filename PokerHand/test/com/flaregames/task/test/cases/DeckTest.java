@@ -7,6 +7,7 @@ package com.flaregames.task.test.cases;
 
 import com.flaregames.task.core.Card;
 import com.flaregames.task.core.Deck;
+import com.flaregames.task.core.PokerManager;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,13 +31,14 @@ public class DeckTest {
      */
     @Test
     public void testGetCards() {
+        
         System.out.println("getCards");
-        Deck instance = null;
-        List<Card> expResult = null;
+        PokerManager manager = new PokerManager();
+        Deck instance = new Deck(manager.generateCards());
         List<Card> result = instance.getCards();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+        assertEquals(52, result.size());
+     
     }
     
 }

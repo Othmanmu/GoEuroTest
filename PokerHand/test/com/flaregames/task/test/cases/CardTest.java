@@ -15,10 +15,10 @@ import static org.junit.Assert.*;
  * @author tms-mustafa
  */
 public class CardTest {
-    
+
     public CardTest() {
     }
-    
+
     @Before
     public void setUp() {
     }
@@ -29,12 +29,18 @@ public class CardTest {
     @Test
     public void testGetValue() {
         System.out.println("getValue");
-        Card instance = null;
-        int expResult = 0;
+        Card instance = new Card(3, "D");
+        int expResult = 3;
         int result = instance.getValue();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertNotNull(result);
+
+        // incase that value where enter in  quote for example "5" the value will be zeor
+        instance = new Card("4", "D");
+        result = instance.getValue();
+        assertEquals(0, result);
+        assertNotNull(result);
+
     }
 
     /**
@@ -43,12 +49,13 @@ public class CardTest {
     @Test
     public void testGetSuite() {
         System.out.println("getSuite");
-        Card instance = null;
-        String expResult = "";
+        Card instance = new Card(3, "H");
+        String expResult = "H";
         String result = instance.getSuite();
+
+        assertNotNull(result);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+
     }
 
     /**
@@ -57,12 +64,11 @@ public class CardTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Card instance = null;
-        String expResult = "";
+        Card instance = new Card("A", "H");;
+        String expResult = "14 - H";
         String result = instance.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+      
     }
-    
+
 }

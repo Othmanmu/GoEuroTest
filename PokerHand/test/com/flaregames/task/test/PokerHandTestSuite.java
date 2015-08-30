@@ -6,6 +6,7 @@ package com.flaregames.task.test;
  * and open the template in the editor.
  */
 
+import com.flaregames.task.test.cases.PokerManagerTest;
 import com.flaregames.task.test.cases.CardTest;
 import com.flaregames.task.test.cases.DeckTest;
 import com.flaregames.task.test.cases.HandTest;
@@ -21,7 +22,7 @@ import org.junit.runners.Suite;
  * @author tms-mustafa
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({CardTest.class , DeckTest.class , HandTest.class})
+@Suite.SuiteClasses({CardTest.class , DeckTest.class , HandTest.class , PokerManagerTest.class})
 public class PokerHandTestSuite {
 
     @BeforeClass
