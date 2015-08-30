@@ -1,1 +1,1 @@
-- some methods in PokerManager should be private , but it public for testing purpose.
+- Some methods in PokerManager should be private , but they are public for testing purpose.
