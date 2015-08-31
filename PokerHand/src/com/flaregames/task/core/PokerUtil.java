@@ -143,10 +143,10 @@ public class PokerUtil {
         return result;
     }
 
-    
     /**
-     * Remove the whole pair from given array 
-     * @param data array of int to be checked. 
+     * Remove the whole pair from given array
+     *
+     * @param data array of int to be checked.
      * @return array after removing pair.
      */
     public int[] removePair(int[] data) {
@@ -180,6 +180,37 @@ public class PokerUtil {
     public int getMaxValue(int[] values) {
         Arrays.sort(values);
         return values[values.length - 1];
+    }
+
+    /**
+     * Compare two arrays contents and return largest value.
+     *
+     * @param firstValues first array of int []
+     * @param secondValues second array of int{}
+     * @return -1 if the first array highest value is smaller that second array
+     * highest value 0 if they contains same highest value. 1 if first array
+     * largest element is greater than second array highest value.
+     */
+    public int compareArray(int[] firstValues, int[] secondValues) {
+        int index = 4;
+        int firstMax;
+        int secondMax;
+
+        // incase of indentical values , we have nothing to do.
+        if (!hasSameValues(firstValues, secondValues)) {
+            firstMax = firstValues[index];
+            secondMax = secondValues[index];
+
+            while ((firstMax == secondMax) && index > 0) {
+                index--;
+                firstMax = firstValues[index];
+                secondMax = secondValues[index];
+            }
+
+        } else {
+            return 0;
+        }
+        return Integer.compare(firstMax, secondMax);
     }
 
 }

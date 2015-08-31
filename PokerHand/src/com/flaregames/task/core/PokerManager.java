@@ -110,7 +110,7 @@ public class PokerManager {
                     return Integer.compare(firstHighValue, secondHighValue);
 
                 case FLUSH:
-                    return compareArray(firstHand.getValues(), secondHand.getValues());
+                    return pokerUtil.compareArray(firstHand.getValues(), secondHand.getValues());
 
                 case STRAIGHT:
                     firstHighValue = pokerUtil.getMaxValue(firstHand.getValues());
@@ -144,32 +144,12 @@ public class PokerManager {
                     return Integer.compare(firstHighValue, secondHighValue);
 
                 case HIGH_CARD:
-                    return compareArray(firstHand.getValues(), secondHand.getValues());
+                    return pokerUtil.compareArray(firstHand.getValues(), secondHand.getValues());
 
             }
         }
         return winner;
     }
 
-    public int compareArray(int[] firstValues, int[] secondValues) {
-        int index = 4;
-        int firstMax;
-        int secondMax;
-        // incase of indentical values , we have nothing to do.
-        if (!pokerUtil.hasSameValues(firstValues, secondValues)) {
-            firstMax = firstValues[index];
-            secondMax = secondValues[index];
-
-            while ((firstMax == secondMax) && index > 0) {
-                index--;
-                firstMax = firstValues[index];
-                secondMax = secondValues[index];
-            }
-
-        } else {
-            return 0;
-        }
-        return Integer.compare(firstMax, secondMax);
-    }
-
+  
 }

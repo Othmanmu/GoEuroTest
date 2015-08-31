@@ -5,7 +5,6 @@
  */
 package com.flaregames.task.test.cases;
 
-
 import com.flaregames.task.core.PokerUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +12,7 @@ import static org.junit.Assert.*;
 
 /**
  * Utility class contains useful methods.
+ *
  * @author tms-mustafa
  */
 public class PokerUtilTest {
@@ -207,6 +207,38 @@ public class PokerUtilTest {
         int[] oneFakeValues = {1, 1, 9, 1, 4};
 
         result = instance.countPairs(oneFakeValues);
+        assertEquals(0, result);
+
+        int[] twoValues = {1, 1, 9, 1, 1};
+
+        result = instance.countPairs(twoValues);
+        assertEquals(2, result);
+
+    }
+
+    /**
+     * Test of testCompareArrays method, of class PokerUtil.
+     */
+    @Test
+    public void testCompareArrays() {
+        System.out.println("testCompareArrays");
+        int[] values = {1, 6, 9, 3, 4};
+        int[] values2 = {1, 6, 9, 10, 4};
+        PokerUtil instance = new PokerUtil();
+
+        int result = instance.compareArray(values, values2);
+        assertEquals(-1, result);
+
+        int[] newValues = {1, 10, 9, 1, 4};
+        int[] newValues2 = {1, 6, 9, 1, 4};
+
+        result = instance.compareArray(newValues, newValues2);
+        assertEquals(1, result);
+
+        int[] equalValues = {1, 10, 9, 1, 4};
+        int[] equalValues2 = {1, 10, 9, 1, 4};
+
+        result = instance.compareArray(equalValues, equalValues2);
         assertEquals(0, result);
 
         int[] twoValues = {1, 1, 9, 1, 1};
