@@ -28,110 +28,7 @@ public class PokerManagerTest {
     public void setUp() {
     }
 
-    /**
-     * Test of isConsecutive method, of class PokerManager.
-     */
-    @Test
-    public void testIsConsecutive() {
-        System.out.println("isConsecutive");
-        int[] values = {6, 7, 8, 9, 10};
-        PokerManager instance = new PokerManager();
-        boolean expResult = true;
-        boolean result = instance.isConsecutive(values);
-        assertEquals(expResult, result);
-
-        int[] reversedValues = {6, 5, 4, 3, 2};
-        expResult = false;
-        result = instance.isConsecutive(reversedValues);
-        result = instance.isConsecutive(reversedValues);
-        result = instance.isConsecutive(reversedValues);
-        assertEquals(expResult, result);
-
-        int[] randomValues = {2, 3, 8, 2, 1};
-
-        expResult = false;
-        result = instance.isConsecutive(randomValues);
-        assertEquals(expResult, result);
-
-    }
-
-    /**
-     * Test of isSameSuite method, of class PokerManager.
-     */
-    @Test
-    public void testIsSameSuite() {
-        System.out.println("isSameSuite");
-        String[] suite = {"C", "C", "C", "C", "C"};
-        PokerManager instance = new PokerManager();
-        boolean expResult = true;
-        boolean result = instance.isSameSuite(suite);
-        assertEquals(expResult, result);
-
-        String[] otherSuite = {"C", "D", "C", "C", "C"};
-        expResult = false;
-        result = instance.isSameSuite(otherSuite);
-        assertEquals(expResult, result);
-
-        String[] newSuite = {"C", "C", "C", "C", "D"};
-        expResult = false;
-        result = instance.isSameSuite(otherSuite);
-        assertEquals(expResult, result);
-
-    }
-
-    /**
-     * Test of countSameValues method, of class PokerManager.
-     */
-    @Test
-    public void testCountSameValues() {
-        System.out.println("testCountSameValues");
-        int[] values = {1, 6, 9, 3, 4};
-        PokerManager instance = new PokerManager();
-
-        int result = instance.countSameValues(values, true);
-        assertEquals(1, result);
-
-        int[] twoValues = {1, 1, 9, 3, 4};
-        result = instance.countSameValues(twoValues, true);
-        assertEquals(2, result);
-
-        int[] threeValues = {1, 1, 9, 3, 1};
-        result = instance.countSameValues(threeValues, true);
-        assertEquals(3, result);
-
-        int[] fourValues = {1, 1, 1, 3, 1};
-        result = instance.countSameValues(fourValues, true);
-        assertEquals(4, result);
-    }
-
-    /**
-     * Test of countPairs method, of class PokerManager.
-     */
-    @Test
-    public void testCountPairs() {
-        System.out.println("testCountPairs");
-        int[] values = {1, 6, 9, 3, 4};
-        PokerManager instance = new PokerManager();
-
-        int result = instance.countPairs(values);
-        assertEquals(0, result);
-
-        int[] oneValues = {1, 6, 9, 1, 4};
-
-        result = instance.countPairs(oneValues);
-        assertEquals(1, result);
-
-        int[] oneFakeValues = {1, 1, 9, 1, 4};
-
-        result = instance.countPairs(oneFakeValues);
-        assertEquals(0, result);
-        
-        int[] twoValues = {1, 1, 9, 1, 1};
-
-        result = instance.countPairs(twoValues);
-        assertEquals(2, result);
-
-    }
+  
 
     /**
      * Test of generateCards method, of class PokerManager.
@@ -224,7 +121,7 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card(7, "C");
         handCards.add(card);
-        card = new Card(11, "C");
+        card = new Card("J", "C");
         handCards.add(card);
         card = new Card(9, "C");
         handCards.add(card);
@@ -410,6 +307,1047 @@ public class PokerManagerTest {
         Hand.Rank result = instance.getRank(hand);
         assertEquals(expResult, result);
 
+    }
+
+   
+
+    /**
+     * Test of getWinner method, of class PokerManager.
+     */
+    @Test
+    public void testGetWinnerForStraightFlush() {
+        System.out.println("testGetWinnerForStraightFlush");
+
+        ArrayList<Card> firstHandCards = new ArrayList<>();
+        ArrayList<Card> secondHandCards = new ArrayList<>();
+        PokerManager instance = new PokerManager();
+
+        // Straight Flush , Same max value
+        Card card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(4, "C");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+        card = new Card(6, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(4, "D");
+        secondHandCards.add(card);
+        card = new Card(5, "D");
+        secondHandCards.add(card);
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+
+        Hand firstPlayer = new Hand(firstHandCards);
+        Hand secondPlayer = new Hand(secondHandCards);
+
+        int expResult = 0;
+
+        int result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        // Straight Flush ,   different value (First Player has higher value)
+        firstHandCards.clear();
+        secondHandCards.clear();
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+        card = new Card(4, "C");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+        card = new Card(6, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(4, "D");
+        secondHandCards.add(card);
+        card = new Card(5, "D");
+        secondHandCards.add(card);
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+
+        // first player should win as he has higher rank.
+        expResult = 1;
+
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        // Straight Flush ,  different value (Second Player has higher value)
+        firstHandCards.clear();
+        secondHandCards.clear();
+
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+        card = new Card(4, "C");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+        card = new Card(6, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+
+        card = new Card(7, "D");
+        secondHandCards.add(card);
+        card = new Card(8, "D");
+        secondHandCards.add(card);
+        card = new Card(9, "D");
+        secondHandCards.add(card);
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(10, "D");
+        secondHandCards.add(card);
+
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+
+        // second player should win as he has higher rank.
+        expResult = -1;
+
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+    }
+
+    /**
+     * Test of getWinner method, of class PokerManager.
+     */
+    @Test
+    public void testGetWinnerForFourInKind() {
+        System.out.println("testGetWinnerForFourInKind");
+
+        ArrayList<Card> firstHandCards = new ArrayList<>();
+        ArrayList<Card> secondHandCards = new ArrayList<>();
+        PokerManager instance = new PokerManager();
+
+        // Four in Kind , Same max value
+        Card card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(2, "D");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "S");
+        secondHandCards.add(card);
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(9, "D");
+        secondHandCards.add(card);
+
+        Hand firstPlayer = new Hand(firstHandCards);
+        Hand secondPlayer = new Hand(secondHandCards);
+
+        int expResult = 0;
+
+        int result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        // Four in Kind , Same max value(First Player has higher value)
+        firstHandCards.clear();
+        secondHandCards.clear();
+
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+        card = new Card(7, "H");
+        firstHandCards.add(card);
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(6, "S");
+        secondHandCards.add(card);
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(10, "D");
+        secondHandCards.add(card);
+
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+
+        // second player should win as he has higher rank.
+        expResult = 1;
+
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        // Four in Kind , Same max value(Second Player has higher value)
+        firstHandCards.clear();
+        secondHandCards.clear();
+
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+        card = new Card(7, "H");
+        firstHandCards.add(card);
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+
+        card = new Card(10, "D");
+        secondHandCards.add(card);
+        card = new Card(10, "S");
+        secondHandCards.add(card);
+        card = new Card(10, "D");
+        secondHandCards.add(card);
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(10, "D");
+        secondHandCards.add(card);
+
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+
+        // second player should win as he has higher rank.
+        expResult = -1;
+
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+    }
+
+    /**
+     * Test of getWinner method, of class PokerManager.
+     */
+    @Test
+    public void testGetWinnerForFlush() {
+        System.out.println("testGetWinnerForFourInKind");
+
+        ArrayList<Card> firstHandCards = new ArrayList<>();
+        ArrayList<Card> secondHandCards = new ArrayList<>();
+        PokerManager instance = new PokerManager();
+
+        // Flush , Same max value
+        Card card = new Card(1, "C");
+        firstHandCards.add(card);
+        card = new Card(6, "C");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(9, "C");
+        firstHandCards.add(card);
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+
+        card = new Card(1, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(9, "D");
+        secondHandCards.add(card);
+
+        int expResult = 0;
+        Hand firstPlayer = new Hand(firstHandCards);
+        Hand secondPlayer = new Hand(secondHandCards);
+        int result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+
+        // Flush , First Player have higher value.
+        card = new Card(1, "C");
+        firstHandCards.add(card);
+        card = new Card(6, "C");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card("J", "C");
+        firstHandCards.add(card);
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+
+        card = new Card(1, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(9, "D");
+        secondHandCards.add(card);
+
+        expResult = 1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+        // Flush , Second Player have higher value.
+        card = new Card(1, "C");
+        firstHandCards.add(card);
+        card = new Card(6, "C");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card("J", "C");
+        firstHandCards.add(card);
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+
+        card = new Card(1, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card("K", "D");
+        secondHandCards.add(card);
+
+        expResult = -1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getWinner method, of class PokerManager.
+     */
+    @Test
+    public void testGetWinnerForStraight() {
+        System.out.println("testGetWinnerForStraight");
+
+        ArrayList<Card> firstHandCards = new ArrayList<>();
+        ArrayList<Card> secondHandCards = new ArrayList<>();
+        PokerManager instance = new PokerManager();
+
+        // Flush , Same max value
+        Card card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(6, "D");
+        firstHandCards.add(card);
+        card = new Card(4, "H");
+        firstHandCards.add(card);
+        card = new Card(3, "S");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+        card = new Card(5, "C");
+        secondHandCards.add(card);
+        card = new Card(4, "H");
+        secondHandCards.add(card);
+        card = new Card(6, "S");
+        secondHandCards.add(card);
+
+        int expResult = 0;
+        Hand firstPlayer = new Hand(firstHandCards);
+        Hand secondPlayer = new Hand(secondHandCards);
+        int result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+
+        // Flush , First Player have higher value.
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+        card = new Card(8, "C");
+        firstHandCards.add(card);
+        card = new Card(9, "D");
+        firstHandCards.add(card);
+        card = new Card(7, "S");
+        firstHandCards.add(card);
+        card = new Card(6, "C");
+        firstHandCards.add(card);
+
+        card = new Card(1, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "S");
+        secondHandCards.add(card);
+        card = new Card(2, "C");
+        secondHandCards.add(card);
+        card = new Card(5, "D");
+        secondHandCards.add(card);
+        card = new Card(4, "D");
+        secondHandCards.add(card);
+
+        expResult = 1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+        // Flush , Second Player have higher value.
+        card = new Card(1, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "D");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(5, "S");
+        firstHandCards.add(card);
+        card = new Card(4, "C");
+        firstHandCards.add(card);
+
+        card = new Card(9, "D");
+        secondHandCards.add(card);
+        card = new Card(8, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "S");
+        secondHandCards.add(card);
+        card = new Card(10, "D");
+        secondHandCards.add(card);
+        card = new Card("J", "D");
+        secondHandCards.add(card);
+
+        expResult = -1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getWinner method, of class PokerManager.
+     */
+    @Test
+    public void testGetWinnerForThreeInKind() {
+        System.out.println("testGetWinnerForThreeInKind");
+
+        ArrayList<Card> firstHandCards = new ArrayList<>();
+        ArrayList<Card> secondHandCards = new ArrayList<>();
+        PokerManager instance = new PokerManager();
+
+        // Flush , Same max value
+        Card card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(2, "D");
+        firstHandCards.add(card);
+        card = new Card(2, "H");
+        firstHandCards.add(card);
+        card = new Card(3, "S");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "C");
+        secondHandCards.add(card);
+        card = new Card(4, "H");
+        secondHandCards.add(card);
+        card = new Card(6, "S");
+        secondHandCards.add(card);
+
+        int expResult = 0;
+        Hand firstPlayer = new Hand(firstHandCards);
+        Hand secondPlayer = new Hand(secondHandCards);
+        int result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+
+        // Flush , First Player have higher value.
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+        card = new Card(10, "D");
+        firstHandCards.add(card);
+        card = new Card(5, "S");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+
+        card = new Card(1, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "S");
+        secondHandCards.add(card);
+        card = new Card(3, "C");
+        secondHandCards.add(card);
+        card = new Card(5, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+
+        expResult = 1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+        // Flush , Second Player have higher value.
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "D");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(5, "S");
+        firstHandCards.add(card);
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+
+        card = new Card(7, "D");
+        secondHandCards.add(card);
+        card = new Card(8, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "S");
+        secondHandCards.add(card);
+        card = new Card(10, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "D");
+        secondHandCards.add(card);
+
+        expResult = -1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getWinner method, of class PokerManager.
+     */
+    @Test
+    public void testGetWinnerForTwoPair() {
+        System.out.println("testGetWinnerForTwoPair");
+
+        ArrayList<Card> firstHandCards = new ArrayList<>();
+        ArrayList<Card> secondHandCards = new ArrayList<>();
+        PokerManager instance = new PokerManager();
+
+        // Two Pairs , Same Pairs
+        Card card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(2, "D");
+        firstHandCards.add(card);
+        card = new Card(3, "H");
+        firstHandCards.add(card);
+        card = new Card(3, "S");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "C");
+        secondHandCards.add(card);
+        card = new Card(3, "H");
+        secondHandCards.add(card);
+        card = new Card(6, "S");
+        secondHandCards.add(card);
+
+        int expResult = 0;
+        Hand firstPlayer = new Hand(firstHandCards);
+        Hand secondPlayer = new Hand(secondHandCards);
+        int result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+
+        // Flush , First Player have higher value with different pairs
+        card = new Card(8, "C");
+        firstHandCards.add(card);
+        card = new Card(8, "C");
+        firstHandCards.add(card);
+        card = new Card(10, "D");
+        firstHandCards.add(card);
+        card = new Card(1, "S");
+        firstHandCards.add(card);
+        card = new Card(1, "C");
+        firstHandCards.add(card);
+
+        card = new Card(1, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "S");
+        secondHandCards.add(card);
+        card = new Card(3, "C");
+        secondHandCards.add(card);
+        card = new Card(5, "D");
+        secondHandCards.add(card);
+        card = new Card(5, "D");
+        secondHandCards.add(card);
+
+        expResult = 1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+        // Flush , Second Player have higher value value with different pairs.
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "D");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(5, "S");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+
+        card = new Card(7, "D");
+        secondHandCards.add(card);
+        card = new Card(8, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "S");
+        secondHandCards.add(card);
+        card = new Card(10, "D");
+        secondHandCards.add(card);
+        card = new Card(10, "D");
+        secondHandCards.add(card);
+
+        expResult = -1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+        // Flush , First Player have higher value value with same pair.
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "D");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(5, "S");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "S");
+        secondHandCards.add(card);
+        card = new Card(4, "D");
+        secondHandCards.add(card);
+        card = new Card(4, "D");
+        secondHandCards.add(card);
+
+        expResult = 1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+        // Flush , Second Player have higher value value with same pair.
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "D");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(5, "S");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "S");
+        secondHandCards.add(card);
+        card = new Card(8, "D");
+        secondHandCards.add(card);
+        card = new Card(8, "D");
+        secondHandCards.add(card);
+
+        expResult = -1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getWinner method, of class PokerManager.
+     */
+    @Test
+    public void testGetWinnerForPair() {
+        System.out.println("testGetWinnerForPair");
+
+        ArrayList<Card> firstHandCards = new ArrayList<>();
+        ArrayList<Card> secondHandCards = new ArrayList<>();
+        PokerManager instance = new PokerManager();
+
+        // Two Pairs , Same Pairs
+        Card card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(2, "D");
+        firstHandCards.add(card);
+        card = new Card(7, "H");
+        firstHandCards.add(card);
+        card = new Card(3, "S");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card(5, "C");
+        secondHandCards.add(card);
+        card = new Card(7, "H");
+        secondHandCards.add(card);
+        card = new Card(3, "S");
+        secondHandCards.add(card);
+
+        int expResult = 0;
+        Hand firstPlayer = new Hand(firstHandCards);
+        Hand secondPlayer = new Hand(secondHandCards);
+        int result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+
+        // Flush , First Player have higher pair value
+        card = new Card(8, "C");
+        firstHandCards.add(card);
+        card = new Card(8, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "D");
+        firstHandCards.add(card);
+        card = new Card(5, "S");
+        firstHandCards.add(card);
+        card = new Card(4, "C");
+        firstHandCards.add(card);
+
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "S");
+        secondHandCards.add(card);
+        card = new Card(6, "C");
+        secondHandCards.add(card);
+        card = new Card(8, "D");
+        secondHandCards.add(card);
+        card = new Card(5, "D");
+        secondHandCards.add(card);
+
+        expResult = 1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+        // Flush , Second Player have higher pair value
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "D");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(7, "S");
+        firstHandCards.add(card);
+        card = new Card(8, "C");
+        firstHandCards.add(card);
+
+        card = new Card(4, "D");
+        secondHandCards.add(card);
+        card = new Card(8, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "S");
+        secondHandCards.add(card);
+        card = new Card(10, "D");
+        secondHandCards.add(card);
+        card = new Card(10, "D");
+        secondHandCards.add(card);
+
+        expResult = -1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+        // Flush , First Player have higher value value with same pair.
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+        card = new Card(5, "D");
+        firstHandCards.add(card);
+        card = new Card(8, "C");
+        firstHandCards.add(card);
+        card = new Card(6, "S");
+        firstHandCards.add(card);
+        card = new Card(9, "C");
+        firstHandCards.add(card);
+
+        card = new Card(5, "D");
+        secondHandCards.add(card);
+        card = new Card(5, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "S");
+        secondHandCards.add(card);
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+        card = new Card(4, "D");
+        secondHandCards.add(card);
+
+        expResult = 1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+        // Flush , Second Player have higher value value with same pair.
+        card = new Card(3, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "D");
+        firstHandCards.add(card);
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(4, "S");
+        firstHandCards.add(card);
+        card = new Card(5, "C");
+        firstHandCards.add(card);
+
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "S");
+        secondHandCards.add(card);
+        card = new Card(8, "D");
+        secondHandCards.add(card);
+        card = new Card(9, "D");
+        secondHandCards.add(card);
+
+        expResult = -1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getWinner method, of class PokerManager.
+     */
+    @Test
+    public void testGetWinnerForHighCard() {
+        System.out.println("testGetWinnerForHighCard");
+
+        ArrayList<Card> firstHandCards = new ArrayList<>();
+        ArrayList<Card> secondHandCards = new ArrayList<>();
+        PokerManager instance = new PokerManager();
+
+        // High Card , Same max value for all cards
+        Card card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(6, "D");
+        firstHandCards.add(card);
+        card = new Card(4, "H");
+        firstHandCards.add(card);
+        card = new Card("J", "S");
+        firstHandCards.add(card);
+        card = new Card(7, "C");
+        firstHandCards.add(card);
+
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card("J", "C");
+        secondHandCards.add(card);
+        card = new Card(4, "H");
+        secondHandCards.add(card);
+        card = new Card(7, "S");
+        secondHandCards.add(card);
+
+        int expResult = 0;
+        Hand firstPlayer = new Hand(firstHandCards);
+        Hand secondPlayer = new Hand(secondHandCards);
+        int result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+
+        // Flush , First Player have higher value.
+        card = new Card(14, "C");
+        firstHandCards.add(card);
+        card = new Card(8, "C");
+        firstHandCards.add(card);
+        card = new Card(7, "D");
+        firstHandCards.add(card);
+        card = new Card(9, "S");
+        firstHandCards.add(card);
+        card = new Card(6, "C");
+        firstHandCards.add(card);
+
+        card = new Card(1, "D");
+        secondHandCards.add(card);
+        card = new Card(6, "S");
+        secondHandCards.add(card);
+        card = new Card(8, "C");
+        secondHandCards.add(card);
+        card = new Card(9, "D");
+        secondHandCards.add(card);
+        card = new Card(4, "D");
+        secondHandCards.add(card);
+
+        expResult = 1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+        // Flush , Second Player have higher value.
+        card = new Card(1, "C");
+        firstHandCards.add(card);
+        card = new Card(3, "D");
+        firstHandCards.add(card);
+        card = new Card(8, "C");
+        firstHandCards.add(card);
+        card = new Card(9, "S");
+        firstHandCards.add(card);
+        card = new Card(6, "C");
+        firstHandCards.add(card);
+
+        card = new Card("A", "D");
+        secondHandCards.add(card);
+        card = new Card(8, "D");
+        secondHandCards.add(card);
+        card = new Card(7, "S");
+        secondHandCards.add(card);
+        card = new Card(3, "D");
+        secondHandCards.add(card);
+        card = new Card("J", "D");
+        secondHandCards.add(card);
+
+        expResult = -1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+        // High Card , Same max first max value but first has higher second value
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(6, "D");
+        firstHandCards.add(card);
+        card = new Card(4, "H");
+        firstHandCards.add(card);
+        card = new Card("J", "S");
+        firstHandCards.add(card);
+        card = new Card(8, "C");
+        firstHandCards.add(card);
+
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card("J", "C");
+        secondHandCards.add(card);
+        card = new Card(4, "H");
+        secondHandCards.add(card);
+        card = new Card(7, "S");
+        secondHandCards.add(card);
+
+        expResult = 1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        firstHandCards.clear();
+        secondHandCards.clear();
+      
+        // High Card , Same max two values   but first has higher third value
+        card = new Card(2, "C");
+        firstHandCards.add(card);
+        card = new Card(6, "D");
+        firstHandCards.add(card);
+        card = new Card(4, "H");
+        firstHandCards.add(card);
+        card = new Card("J", "S");
+        firstHandCards.add(card);
+        card = new Card(8, "C");
+        firstHandCards.add(card);
+
+        card = new Card(6, "D");
+        secondHandCards.add(card);
+        card = new Card(2, "D");
+        secondHandCards.add(card);
+        card = new Card("J", "C");
+        secondHandCards.add(card);
+        card = new Card(8, "H");
+        secondHandCards.add(card);
+        card = new Card(3, "S");
+        secondHandCards.add(card);
+
+        expResult = 1;
+        firstPlayer = new Hand(firstHandCards);
+        secondPlayer = new Hand(secondHandCards);
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+ 
     }
 
 }

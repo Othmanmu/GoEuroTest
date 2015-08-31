@@ -6,7 +6,6 @@
 package com.flaregames.task.core;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import static com.flaregames.task.core.Hand.Rank;
 
 /**
@@ -17,90 +16,7 @@ import static com.flaregames.task.core.Hand.Rank;
  */
 public class PokerManager {
 
-    /**
-     * Checks weather input values are consecutive or not.
-     *
-     * @param values to be checked.
-     * @return
-     */
-    public boolean isConsecutive(int[] values) {
-        int number = 0;
-        for (int i = 0; i < values.length - 1; i++) {
-            if (values[i] == values[i + 1] - 1) {
-                number++;
-            }
-        }
-        return number == 4;
-    }
-
-    /**
-     * Checks if input suite have same value or not.
-     *
-     * @param suite
-     * @return
-     */
-    public boolean isSameSuite(String[] suite) {
-        int number = 0;
-        for (int i = 0; i < suite.length - 1; i++) {
-            if (suite[i].equals(suite[i + 1])) {
-                number++;
-            }
-        }
-        return number == 4;
-    }
-
-    public int countSameValues(int[] data, boolean maxValue) {
-        ArrayList<Integer> list = arrayToList(data);
-        int max = 0;
-        int min = 0;
-        int current = 0;
-        boolean first = true;
-        for (Integer i : list) {
-            current = Collections.frequency(list, i);
-            if (first) {
-                max = min = current;
-                first = false;
-            }
-            if (current < min) {
-                min = current;
-            }
-            if (current > max) {
-                max = current;
-            }
-        }
-        return maxValue ? max : min;
-    }
-
-    public int countPairs(int[] data) {
-        ArrayList<Integer> list = arrayToList(data);
-
-        int pairCount = 0;
-        int current = 0;
-        for (Integer i : list) {
-            current = Collections.frequency(list, i);
-            if (current % 2 ==0) {
-                pairCount++;
-            }
-
-        }
-        return pairCount / 2;
-    }
-
-    /**
-     * Converts array to ArrayList.
-     *
-     * @param values : to be converted to ArrayList
-     * @return ArrayList representing values.
-     */
-    public ArrayList<Integer> arrayToList(int[] values) {
-
-        ArrayList<Integer> result = new ArrayList<>();
-        for (int index = 0; index < values.length; index++) {
-            result.add(values[index]);
-        }
-
-        return result;
-    }
+    private PokerUtil pokerUtil = new PokerUtil();
 
     /**
      * Generate list of cards to be used in Deck.
@@ -116,13 +32,10 @@ public class PokerManager {
             }
         }
         return cards;
-
     }
 
     private Object[] values = {2, 3, 4, 5, 6, 7, 8, 9, 10, "J", "Q", "K", "A"};
     private String[] suits = {"H", "S", "D", "C"};
-
-  
 
     /**
      * Calculate Rank for hand
@@ -133,19 +46,19 @@ public class PokerManager {
     public Rank getRank(Hand hand) {
         Hand.Rank result = Hand.Rank.HIGH_CARD;
 
-        if (isConsecutive(hand.getValues())) {
-            if (isSameSuite(hand.getSuites())) {
+        if (pokerUtil.isConsecutive(hand.getValues())) {
+            if (pokerUtil.isSameSuite(hand.getSuites())) {
                 return Rank.STRAIGHT_FLSUH;
             } else {
                 return Rank.STRAIGHT;
             }
         }
-        if (isSameSuite(hand.getSuites())) {
+        if (pokerUtil.isSameSuite(hand.getSuites())) {
             return Rank.FLUSH;
         }
 
-        int count = countSameValues(hand.getValues(), true);
-        int pairCount = countPairs(hand.getValues());
+        int count = pokerUtil.countLargestSameValues(hand.getValues())[1];
+        int pairCount = pokerUtil.countPairs(hand.getValues());
 
         switch (count) {
             case 4:
@@ -169,6 +82,94 @@ public class PokerManager {
 
         }
         return result;
+    }
+
+    public int getWinner(Hand firstHand, Hand secondHand) {
+        int winner = -1;
+        firstHand.setRank(getRank(firstHand));
+        secondHand.setRank(getRank(secondHand));
+
+        int firstHighValue;
+        int secondHighValue;
+
+        if (firstHand.getRank() == secondHand.getRank()) {
+            switch (firstHand.getRank()) {
+                case STRAIGHT_FLSUH:
+                    firstHighValue = pokerUtil.getMaxValue(firstHand.getValues());
+                    secondHighValue = pokerUtil.getMaxValue(secondHand.getValues());
+                    return Integer.compare(firstHighValue, secondHighValue);
+
+                case FOUR_OF_KIND:
+                    firstHighValue = pokerUtil.countLargestSameValues(firstHand.getValues())[0];
+                    secondHighValue = pokerUtil.countLargestSameValues(secondHand.getValues())[0];
+                    return Integer.compare(firstHighValue, secondHighValue);
+
+                case FULL_HOUSE:
+                    firstHighValue = pokerUtil.countLargestSameValues(firstHand.getValues())[0];
+                    secondHighValue = pokerUtil.countLargestSameValues(secondHand.getValues())[0];
+                    return Integer.compare(firstHighValue, secondHighValue);
+
+                case FLUSH:
+                    return compareArray(firstHand.getValues(), secondHand.getValues());
+
+                case STRAIGHT:
+                    firstHighValue = pokerUtil.getMaxValue(firstHand.getValues());
+                    secondHighValue = pokerUtil.getMaxValue(secondHand.getValues());
+                    return Integer.compare(firstHighValue, secondHighValue);
+
+                case THREE_OF_KIND:
+                    firstHighValue = pokerUtil.countLargestSameValues(firstHand.getValues())[0];
+                    secondHighValue = pokerUtil.countLargestSameValues(secondHand.getValues())[0];
+                    return Integer.compare(firstHighValue, secondHighValue);
+
+                case TWO_PAIRS:
+                    firstHighValue = pokerUtil.getHighestPair(firstHand.getValues(), -1);
+                    secondHighValue = pokerUtil.getHighestPair(secondHand.getValues(), -1);
+                    if (firstHighValue == secondHighValue) {
+                        firstHighValue = pokerUtil.getHighestPair(firstHand.getValues(), firstHighValue);
+                        secondHighValue = pokerUtil.getHighestPair(secondHand.getValues(), secondHighValue);
+                    }
+                    return Integer.compare(firstHighValue, secondHighValue);
+
+                case PAIR:
+                    firstHighValue = pokerUtil.getHighestPair(firstHand.getValues(), -1);
+                    secondHighValue = pokerUtil.getHighestPair(secondHand.getValues(), -1);
+                    if (firstHighValue == secondHighValue) {
+                        int[] firstRemainingValues = pokerUtil.removePair(firstHand.getValues());
+                        int[] secondRemainingValues = pokerUtil.removePair(secondHand.getValues());
+
+                        firstHighValue = pokerUtil.getMaxValue(firstRemainingValues);
+                        secondHighValue = pokerUtil.getMaxValue(secondRemainingValues);
+                    }
+                    return Integer.compare(firstHighValue, secondHighValue);
+
+                case HIGH_CARD:
+                    return compareArray(firstHand.getValues(), secondHand.getValues());
+
+            }
+        }
+        return winner;
+    }
+
+    public int compareArray(int[] firstValues, int[] secondValues) {
+        int index = 4;
+        int firstMax;
+        int secondMax;
+        // incase of indentical values , we have nothing to do.
+        if (!pokerUtil.hasSameValues(firstValues, secondValues)) {
+            firstMax = firstValues[index];
+            secondMax = secondValues[index];
+
+            while ((firstMax == secondMax) && index > 0) {
+                index--;
+                firstMax = firstValues[index];
+                secondMax = secondValues[index];
+            }
+
+        } else {
+            return 0;
+        }
+        return Integer.compare(firstMax, secondMax);
     }
 
 }

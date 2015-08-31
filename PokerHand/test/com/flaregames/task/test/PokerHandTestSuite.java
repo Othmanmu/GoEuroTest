@@ -5,11 +5,11 @@ package com.flaregames.task.test;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import com.flaregames.task.test.cases.PokerManagerTest;
 import com.flaregames.task.test.cases.CardTest;
 import com.flaregames.task.test.cases.DeckTest;
 import com.flaregames.task.test.cases.HandTest;
+import com.flaregames.task.test.cases.PokerUtilTest;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -22,7 +22,7 @@ import org.junit.runners.Suite;
  * @author tms-mustafa
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({CardTest.class , DeckTest.class , HandTest.class , PokerManagerTest.class})
+@Suite.SuiteClasses({CardTest.class, DeckTest.class, HandTest.class, PokerManagerTest.class, PokerUtilTest.class})
 public class PokerHandTestSuite {
 
     @BeforeClass
@@ -40,5 +40,5 @@ public class PokerHandTestSuite {
     @After
     public void tearDown() throws Exception {
     }
-    
+
 }

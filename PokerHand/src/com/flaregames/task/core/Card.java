@@ -20,7 +20,8 @@ public class Card {
     /**
      *
      * @param v Object represents card value , it accepts both String for values
-     * : Jack , Queen King and Ace , or Integer from 2 to 10
+     * : Jack , Queen King and Ace , or Integer from 2 to 10 all numerical
+     * values should be entered without quote
      * @param s String name of suite , it can be (C)ube , (H)art , (D)iamond and
      * (S)pades.
      */
