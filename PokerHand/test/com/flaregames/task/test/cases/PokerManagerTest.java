@@ -27,9 +27,7 @@ public class PokerManagerTest {
     @Before
     public void setUp() {
     }
-
-  
-
+ 
     /**
      * Test of generateCards method, of class PokerManager.
      */
