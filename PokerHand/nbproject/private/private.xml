@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/src/com/flaregames/task/gui/MainFrame.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/test/com/flaregames/task/test/cases/HandTest.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/src/com/flaregames/task/core/Card.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/src/com/flaregames/task/gui/PokerDeck.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/test/com/flaregames/task/test/cases/PokerUtilTest.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/test/com/flaregames/task/test/TestUtil.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/src/com/flaregames/task/core/Hand.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/test/com/flaregames/task/test/cases/DeckTest.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/src/com/flaregames/task/core/PokerUtil.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/src/com/flaregames/task/core/PokerManager.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/test/com/flaregames/task/test/cases/CardTest.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/test/com/flaregames/task/test/cases/PokerManagerTest.java</file>
+            <file>file:/home/tms-mustafa/NetBeansProjects/PokerHand/PokerHand/test/com/flaregames/task/test/PokerHandTestSuite.java</file>
+        </group>
+    </open-files>
+</project-private>
