@@ -84,8 +84,8 @@ public class PokerManager {
         return result;
     }
 
-    public int getWinner(Hand firstHand, Hand secondHand) {
-        int winner = -1;
+    public int[] getWinner(Hand firstHand, Hand secondHand) {
+        int[] winner = {-1, -1, -1}; // used to store both winner and rank value for each player.
         firstHand.setRank(getRank(firstHand));
         secondHand.setRank(getRank(secondHand));
 
@@ -97,30 +97,53 @@ public class PokerManager {
                 case STRAIGHT_FLSUH:
                     firstHighValue = pokerUtil.getMaxValue(firstHand.getValues());
                     secondHighValue = pokerUtil.getMaxValue(secondHand.getValues());
-                    return Integer.compare(firstHighValue, secondHighValue);
+                    winner[0] = Integer.compare(firstHighValue, secondHighValue);
+                    winner[1] = Integer.max(firstHighValue, secondHighValue);
+                    winner[2] = Integer.min(firstHighValue, secondHighValue);
+                    return winner;
 
                 case FOUR_OF_KIND:
                     firstHighValue = pokerUtil.countLargestSameValues(firstHand.getValues())[0];
                     secondHighValue = pokerUtil.countLargestSameValues(secondHand.getValues())[0];
-                    return Integer.compare(firstHighValue, secondHighValue);
+                    winner[0] = Integer.compare(firstHighValue, secondHighValue);
+                    winner[1] = Integer.max(firstHighValue, secondHighValue);
+                    winner[2] = Integer.min(firstHighValue, secondHighValue);
+                    return winner;
 
                 case FULL_HOUSE:
                     firstHighValue = pokerUtil.countLargestSameValues(firstHand.getValues())[0];
                     secondHighValue = pokerUtil.countLargestSameValues(secondHand.getValues())[0];
-                    return Integer.compare(firstHighValue, secondHighValue);
+
+                    winner[0] = Integer.compare(firstHighValue, secondHighValue);
+                    winner[1] = Integer.max(firstHighValue, secondHighValue);
+                    winner[2] = Integer.min(firstHighValue, secondHighValue);
+                    return winner;
 
                 case FLUSH:
-                    return pokerUtil.compareArray(firstHand.getValues(), secondHand.getValues());
+
+                    winner[0] = pokerUtil.compareArray(firstHand.getValues(), secondHand.getValues())[0];
+                    winner[1] = pokerUtil.compareArray(firstHand.getValues(), secondHand.getValues())[1];
+                    winner[2] = pokerUtil.compareArray(firstHand.getValues(), secondHand.getValues())[2];
+
+                    return winner;
 
                 case STRAIGHT:
                     firstHighValue = pokerUtil.getMaxValue(firstHand.getValues());
                     secondHighValue = pokerUtil.getMaxValue(secondHand.getValues());
-                    return Integer.compare(firstHighValue, secondHighValue);
+
+                    winner[0] = Integer.compare(firstHighValue, secondHighValue);
+                    winner[1] = Integer.max(firstHighValue, secondHighValue);
+                    winner[2] = Integer.min(firstHighValue, secondHighValue);
+                    return winner;
 
                 case THREE_OF_KIND:
                     firstHighValue = pokerUtil.countLargestSameValues(firstHand.getValues())[0];
                     secondHighValue = pokerUtil.countLargestSameValues(secondHand.getValues())[0];
-                    return Integer.compare(firstHighValue, secondHighValue);
+
+                    winner[0] = Integer.compare(firstHighValue, secondHighValue);
+                    winner[1] = Integer.max(firstHighValue, secondHighValue);
+                    winner[2] = Integer.min(firstHighValue, secondHighValue);
+                    return winner;
 
                 case TWO_PAIRS:
                     firstHighValue = pokerUtil.getHighestPair(firstHand.getValues(), -1);
@@ -129,7 +152,11 @@ public class PokerManager {
                         firstHighValue = pokerUtil.getHighestPair(firstHand.getValues(), firstHighValue);
                         secondHighValue = pokerUtil.getHighestPair(secondHand.getValues(), secondHighValue);
                     }
-                    return Integer.compare(firstHighValue, secondHighValue);
+
+                    winner[0] = Integer.compare(firstHighValue, secondHighValue);
+                    winner[1] = Integer.max(firstHighValue, secondHighValue);
+                    winner[2] = Integer.min(firstHighValue, secondHighValue);
+                    return winner;
 
                 case PAIR:
                     firstHighValue = pokerUtil.getHighestPair(firstHand.getValues(), -1);
@@ -141,14 +168,22 @@ public class PokerManager {
                         firstHighValue = pokerUtil.getMaxValue(firstRemainingValues);
                         secondHighValue = pokerUtil.getMaxValue(secondRemainingValues);
                     }
-                    return Integer.compare(firstHighValue, secondHighValue);
+                    winner[0] = Integer.compare(firstHighValue, secondHighValue);
+                    winner[1] = Integer.max(firstHighValue, secondHighValue);
+                    winner[2] = Integer.min(firstHighValue, secondHighValue);
+                    return winner;
 
                 case HIGH_CARD:
-                    return pokerUtil.compareArray(firstHand.getValues(), secondHand.getValues());
+
+                    winner[0] = pokerUtil.compareArray(firstHand.getValues(), secondHand.getValues())[0];
+                    winner[1] = pokerUtil.compareArray(firstHand.getValues(), secondHand.getValues())[1];
+                    winner[2] = pokerUtil.compareArray(firstHand.getValues(), secondHand.getValues())[2];
+                    return winner;
 
             }
         } else {
-            return pokerUtil.compareRank(firstHand.getRank(), secondHand.getRank());
+            winner[0] = pokerUtil.compareRank(firstHand.getRank(), secondHand.getRank());
+            return winner;
         }
         return winner;
     }

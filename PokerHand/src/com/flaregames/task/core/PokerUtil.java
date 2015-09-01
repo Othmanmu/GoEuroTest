@@ -187,15 +187,16 @@ public class PokerUtil {
      * Compare two arrays contents and return largest value.
      *
      * @param firstValues first array of int []
-     * @param secondValues second array of int{}
+     * @param secondValues second array of int []
      * @return -1 if the first array highest value is smaller that second array
      * highest value 0 if they contains same highest value. 1 if first array
      * largest element is greater than second array highest value.
      */
-    public int compareArray(int[] firstValues, int[] secondValues) {
+    public int[] compareArray(int[] firstValues, int[] secondValues) {
         int index = 4;
         int firstMax;
         int secondMax;
+        int[] winner = {-1, -1, -1};
 
         // incase of indentical values , we have nothing to do.
         if (!hasSameValues(firstValues, secondValues)) {
@@ -209,9 +210,13 @@ public class PokerUtil {
             }
 
         } else {
-            return 0;
+            winner[0] = 0;
+            return winner;
         }
-        return Integer.compare(firstMax, secondMax);
+        winner[0] = Integer.compare(firstMax, secondMax);
+        winner[1] = Integer.max(firstMax, secondMax);
+        winner[2] = Integer.min(firstMax, secondMax);
+        return winner;
     }
 
     /**
