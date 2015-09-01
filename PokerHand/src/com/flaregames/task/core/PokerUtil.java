@@ -8,6 +8,7 @@ package com.flaregames.task.core;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import static com.flaregames.task.core.Hand.Rank;
 
 /**
  *
@@ -211,6 +212,19 @@ public class PokerUtil {
             return 0;
         }
         return Integer.compare(firstMax, secondMax);
+    }
+
+    /**
+     * Compares two rank and return which of them has higher category.
+     *
+     * @param firstRank
+     * @param secondRank
+     * @return -1 if first rank have lower category than second 0 if they have
+     * same rank; 1 if first rank has higher category than second rank.
+     */
+    public int compareRank(Rank firstRank, Rank secondRank) {
+        return Integer.compare(Rank.valueOf(String.valueOf(firstRank)).ordinal(),
+                Rank.valueOf(String.valueOf(secondRank)).ordinal());
     }
 
 }

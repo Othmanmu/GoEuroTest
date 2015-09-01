@@ -5,6 +5,7 @@
  */
 package com.flaregames.task.test.cases;
 
+import com.flaregames.task.core.Hand;
 import com.flaregames.task.core.PokerUtil;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,10 @@ public class PokerUtilTest {
 
     @Before
     public void setUp() {
+        instance = new PokerUtil();
     }
+
+    private PokerUtil instance;
 
     /**
      * Test of isConsecutive method, of class PokerUtil.
@@ -31,7 +35,7 @@ public class PokerUtilTest {
     public void testIsConsecutive() {
         System.out.println("isConsecutive");
         int[] values = {6, 7, 8, 9, 10};
-        PokerUtil instance = new PokerUtil();
+
         boolean expResult = true;
         boolean result = instance.isConsecutive(values);
         assertEquals(expResult, result);
@@ -57,7 +61,7 @@ public class PokerUtilTest {
     public void testIsSameSuite() {
         System.out.println("isSameSuite");
         String[] suite = {"C", "C", "C", "C", "C"};
-        PokerUtil instance = new PokerUtil();
+
         boolean expResult = true;
         boolean result = instance.isSameSuite(suite);
         assertEquals(expResult, result);
@@ -82,7 +86,6 @@ public class PokerUtilTest {
         int[] values = {1, 6, 1, 5, 5};
         int result;
         int expResult = 5;
-        PokerUtil instance = new PokerUtil();
 
         result = instance.getHighestPair(values, -1);
         assertEquals(expResult, result);
@@ -102,7 +105,6 @@ public class PokerUtilTest {
         int[] result;
         int[] expResult = {5, 8, 6};
 
-        PokerUtil instance = new PokerUtil();
         result = instance.removePair(values);
 
         assertEquals(expResult[0], result[0]);
@@ -119,7 +121,6 @@ public class PokerUtilTest {
         boolean result = true;
         int[] expResult = {1, 1, 5, 8, 6};
 
-        PokerUtil instance = new PokerUtil();
         result = instance.hasSameValues(values, expResult);
         assertEquals(true, result);
 
@@ -137,7 +138,6 @@ public class PokerUtilTest {
         int result;
         int expResult = 8;
 
-        PokerUtil instance = new PokerUtil();
         result = instance.getMaxValue(values);
         assertEquals(expResult, result);
     }
@@ -150,7 +150,6 @@ public class PokerUtilTest {
         System.out.println("getLargest");
         int[] values = {6, 5, 3, 7, 1};
 
-        PokerUtil instance = new PokerUtil();
         int expResult = 7;
 
         int result = instance.getMaxValue(values);
@@ -165,7 +164,6 @@ public class PokerUtilTest {
     public void testCountSameValues() {
         System.out.println("testCountSameValues");
         int[] values = {1, 6, 9, 3, 4};
-        PokerUtil instance = new PokerUtil();
 
         int[] result = instance.countLargestSameValues(values);
         assertEquals(1, result[1]);
@@ -194,7 +192,6 @@ public class PokerUtilTest {
     public void testCountPairs() {
         System.out.println("testCountPairs");
         int[] values = {1, 6, 9, 3, 4};
-        PokerUtil instance = new PokerUtil();
 
         int result = instance.countPairs(values);
         assertEquals(0, result);
@@ -224,7 +221,6 @@ public class PokerUtilTest {
         System.out.println("testCompareArrays");
         int[] values = {1, 6, 9, 3, 4};
         int[] values2 = {1, 6, 9, 10, 4};
-        PokerUtil instance = new PokerUtil();
 
         int result = instance.compareArray(values, values2);
         assertEquals(-1, result);
@@ -245,6 +241,35 @@ public class PokerUtilTest {
 
         result = instance.countPairs(twoValues);
         assertEquals(2, result);
+
+    }
+
+    /**
+     * Test of compareRank method, of class PokerUtil.
+     */
+    @Test
+    public void testCompareRank() {
+
+        int expResult = -1;
+        // test High Card against other ranks.
+        int result;
+
+        for (Hand.Rank rank : Hand.Rank.values()) {
+            if (rank != Hand.Rank.HIGH_CARD) {
+                result = instance.compareRank(Hand.Rank.HIGH_CARD, rank);
+                assertEquals(expResult, result);
+            }
+        }
+
+        // test S against other ranks.
+        expResult = 1;
+
+        for (Hand.Rank rank : Hand.Rank.values()) {
+            if (rank != Hand.Rank.STRAIGHT_FLSUH) {
+                result = instance.compareRank(Hand.Rank.STRAIGHT_FLSUH, rank);
+                assertEquals(expResult, result);
+            }
+        }
 
     }
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import static com.flaregames.task.core.Hand.Rank;
 
 /**
- * This is considered as master class included all needed functions used in
+ * This is considered as master class includes all needed functions used in
  * game.
  *
  * @author mustafa
@@ -147,9 +147,10 @@ public class PokerManager {
                     return pokerUtil.compareArray(firstHand.getValues(), secondHand.getValues());
 
             }
+        } else {
+            return pokerUtil.compareRank(firstHand.getRank(), secondHand.getRank());
         }
         return winner;
     }
 
-  
 }

@@ -8,6 +8,7 @@ package com.flaregames.task.test.cases;
 import com.flaregames.task.core.Card;
 import com.flaregames.task.core.Hand;
 import com.flaregames.task.core.PokerManager;
+import com.flaregames.task.test.TestUtil;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,15 +27,19 @@ public class PokerManagerTest {
 
     @Before
     public void setUp() {
+        instance = new PokerManager();
+        testUtil = new TestUtil();
     }
- 
+
+    private PokerManager instance;
+    private TestUtil testUtil;
+
     /**
      * Test of generateCards method, of class PokerManager.
      */
     @Test
     public void testGenerateCards() {
         System.out.println("generateCards");
-        PokerManager instance = new PokerManager();
 
         ArrayList<Card> result = instance.generateCards();
         // check number of generated cards.
@@ -67,7 +72,7 @@ public class PokerManagerTest {
         handCards.add(card);
 
         Hand hand = new Hand(handCards);
-        PokerManager instance = new PokerManager();
+
         Hand.Rank expResult = Hand.Rank.STRAIGHT_FLSUH;
 
         Hand.Rank result = instance.getRank(hand);
@@ -96,7 +101,7 @@ public class PokerManagerTest {
         handCards.add(card);
 
         Hand hand = new Hand(handCards);
-        PokerManager instance = new PokerManager();
+
         Hand.Rank expResult = Hand.Rank.STRAIGHT;
 
         Hand.Rank result = instance.getRank(hand);
@@ -125,7 +130,7 @@ public class PokerManagerTest {
         handCards.add(card);
 
         Hand hand = new Hand(handCards);
-        PokerManager instance = new PokerManager();
+
         Hand.Rank expResult = Hand.Rank.FLUSH;
 
         Hand.Rank result = instance.getRank(hand);
@@ -154,7 +159,7 @@ public class PokerManagerTest {
         handCards.add(card);
 
         Hand hand = new Hand(handCards);
-        PokerManager instance = new PokerManager();
+
         Hand.Rank expResult = Hand.Rank.FOUR_OF_KIND;
 
         Hand.Rank result = instance.getRank(hand);
@@ -183,7 +188,7 @@ public class PokerManagerTest {
         handCards.add(card);
 
         Hand hand = new Hand(handCards);
-        PokerManager instance = new PokerManager();
+
         Hand.Rank expResult = Hand.Rank.THREE_OF_KIND;
 
         Hand.Rank result = instance.getRank(hand);
@@ -212,7 +217,7 @@ public class PokerManagerTest {
         handCards.add(card);
 
         Hand hand = new Hand(handCards);
-        PokerManager instance = new PokerManager();
+
         Hand.Rank expResult = Hand.Rank.FULL_HOUSE;
 
         Hand.Rank result = instance.getRank(hand);
@@ -241,7 +246,7 @@ public class PokerManagerTest {
         handCards.add(card);
 
         Hand hand = new Hand(handCards);
-        PokerManager instance = new PokerManager();
+
         Hand.Rank expResult = Hand.Rank.PAIR;
 
         Hand.Rank result = instance.getRank(hand);
@@ -270,7 +275,7 @@ public class PokerManagerTest {
         handCards.add(card);
 
         Hand hand = new Hand(handCards);
-        PokerManager instance = new PokerManager();
+
         Hand.Rank expResult = Hand.Rank.TWO_PAIRS;
 
         Hand.Rank result = instance.getRank(hand);
@@ -299,15 +304,13 @@ public class PokerManagerTest {
         handCards.add(card);
 
         Hand hand = new Hand(handCards);
-        PokerManager instance = new PokerManager();
+
         Hand.Rank expResult = Hand.Rank.HIGH_CARD;
 
         Hand.Rank result = instance.getRank(hand);
         assertEquals(expResult, result);
 
     }
-
-   
 
     /**
      * Test of getWinner method, of class PokerManager.
@@ -318,7 +321,6 @@ public class PokerManagerTest {
 
         ArrayList<Card> firstHandCards = new ArrayList<>();
         ArrayList<Card> secondHandCards = new ArrayList<>();
-        PokerManager instance = new PokerManager();
 
         // Straight Flush , Same max value
         Card card = new Card(2, "C");
@@ -431,7 +433,6 @@ public class PokerManagerTest {
 
         ArrayList<Card> firstHandCards = new ArrayList<>();
         ArrayList<Card> secondHandCards = new ArrayList<>();
-        PokerManager instance = new PokerManager();
 
         // Four in Kind , Same max value
         Card card = new Card(2, "C");
@@ -545,7 +546,6 @@ public class PokerManagerTest {
 
         ArrayList<Card> firstHandCards = new ArrayList<>();
         ArrayList<Card> secondHandCards = new ArrayList<>();
-        PokerManager instance = new PokerManager();
 
         // Flush , Same max value
         Card card = new Card(1, "C");
@@ -649,7 +649,6 @@ public class PokerManagerTest {
 
         ArrayList<Card> firstHandCards = new ArrayList<>();
         ArrayList<Card> secondHandCards = new ArrayList<>();
-        PokerManager instance = new PokerManager();
 
         // Flush , Same max value
         Card card = new Card(2, "C");
@@ -753,7 +752,6 @@ public class PokerManagerTest {
 
         ArrayList<Card> firstHandCards = new ArrayList<>();
         ArrayList<Card> secondHandCards = new ArrayList<>();
-        PokerManager instance = new PokerManager();
 
         // Flush , Same max value
         Card card = new Card(2, "C");
@@ -857,7 +855,6 @@ public class PokerManagerTest {
 
         ArrayList<Card> firstHandCards = new ArrayList<>();
         ArrayList<Card> secondHandCards = new ArrayList<>();
-        PokerManager instance = new PokerManager();
 
         // Two Pairs , Same Pairs
         Card card = new Card(2, "C");
@@ -1023,7 +1020,6 @@ public class PokerManagerTest {
 
         ArrayList<Card> firstHandCards = new ArrayList<>();
         ArrayList<Card> secondHandCards = new ArrayList<>();
-        PokerManager instance = new PokerManager();
 
         // Two Pairs , Same Pairs
         Card card = new Card(2, "C");
@@ -1189,7 +1185,6 @@ public class PokerManagerTest {
 
         ArrayList<Card> firstHandCards = new ArrayList<>();
         ArrayList<Card> secondHandCards = new ArrayList<>();
-        PokerManager instance = new PokerManager();
 
         // High Card , Same max value for all cards
         Card card = new Card(2, "C");
@@ -1316,7 +1311,7 @@ public class PokerManagerTest {
 
         firstHandCards.clear();
         secondHandCards.clear();
-      
+
         // High Card , Same max two values   but first has higher third value
         card = new Card(2, "C");
         firstHandCards.add(card);
@@ -1345,7 +1340,69 @@ public class PokerManagerTest {
         secondPlayer = new Hand(secondHandCards);
         result = instance.getWinner(firstPlayer, secondPlayer);
         assertEquals(expResult, result);
- 
+
+    }
+
+    /**
+     * Test of getWinner for different Categories.
+     */
+    @Test
+    public void testGetWinnerForDifferentCategories() {
+        // First Player high Card Second Player Pair
+
+        int expResult = -1;
+        Hand firstPlayer = new Hand(testUtil.getHighCard());
+        Hand secondPlayer = new Hand(testUtil.getPairCard());
+        int result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        // First Player Pair ,  Second Player Two Pair
+        expResult = -1;
+        firstPlayer = new Hand(testUtil.getPairCard());
+        secondPlayer = new Hand(testUtil.getTwoPairsCard());
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        // First Player Two Pairs , Second Player Three of Kind.
+        expResult = -1;
+        firstPlayer = new Hand(testUtil.getTwoPairsCard());
+        secondPlayer = new Hand(testUtil.getThreeOfKind());
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        // First Player Three of Kind.  , Second Player Straight
+        expResult = -1;
+        firstPlayer = new Hand(testUtil.getThreeOfKind());
+        secondPlayer = new Hand(testUtil.getStraightCard());
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        // First Player Straight , Second Player Flush
+        expResult = -1;
+        firstPlayer = new Hand(testUtil.getStraightCard());
+        secondPlayer = new Hand(testUtil.getFlushCard());
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        // First Player Flush , Second Player Full House
+        expResult = -1;
+        firstPlayer = new Hand(testUtil.getFlushCard());
+        secondPlayer = new Hand(testUtil.getFullHouse());
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        // First Player Full House , Second Player Four of Kind
+        expResult = -1;
+        firstPlayer = new Hand(testUtil.getFullHouse());
+        secondPlayer = new Hand(testUtil.getFourOfKind());
+        result = instance.getWinner(firstPlayer, secondPlayer);
+        assertEquals(expResult, result);
+
+        // First Player Full House , Second Player Four of Kind
+        expResult = -1;
+        firstPlayer = new Hand(testUtil.getFourOfKind());
+        secondPlayer = new Hand(testUtil.getStraightFlush());
+        result = instance.getWinner(firstPlayer, secondPlayer);
     }
 
 }

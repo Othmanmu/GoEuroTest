@@ -5,6 +5,7 @@
  */
 package com.flaregames.task.core;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,7 +22,6 @@ public class Hand {
     private Rank rank;
 
     public enum Rank {
-
         HIGH_CARD, PAIR, TWO_PAIRS, THREE_OF_KIND, STRAIGHT, FLUSH, FULL_HOUSE, FOUR_OF_KIND, STRAIGHT_FLSUH
     };
 
