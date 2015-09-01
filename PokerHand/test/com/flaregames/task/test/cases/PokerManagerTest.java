@@ -126,7 +126,7 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card("J", "C");
         handCards.add(card);
-        card = new Card(9, "C");
+        card = new Card(2, "C");
         handCards.add(card);
 
         Hand hand = new Hand(handCards);
@@ -153,9 +153,9 @@ public class PokerManagerTest {
         handCards.add(card);
         card = new Card(7, "D");
         handCards.add(card);
-        card = new Card(9, "C");
+        card = new Card(9, "D");
         handCards.add(card);
-        card = new Card(9, "C");
+        card = new Card(9, "S");
         handCards.add(card);
 
         Hand hand = new Hand(handCards);
@@ -176,7 +176,7 @@ public class PokerManagerTest {
 
         ArrayList<Card> handCards = new ArrayList<>();
 
-        Card card = new Card(4, "C");
+        Card card = new Card(4, "H");
         handCards.add(card);
         card = new Card(9, "H");
         handCards.add(card);
@@ -205,7 +205,7 @@ public class PokerManagerTest {
 
         ArrayList<Card> handCards = new ArrayList<>();
 
-        Card card = new Card(4, "C");
+        Card card = new Card(4, "D");
         handCards.add(card);
         card = new Card(9, "H");
         handCards.add(card);
@@ -350,8 +350,12 @@ public class PokerManagerTest {
 
         int expResult = 0;
 
-        int result = instance.getWinner(firstPlayer, secondPlayer);
+        int result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        int highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        int lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(6, highRank);
+        assertEquals(6, lowRank);
 
         // Straight Flush ,   different value (First Player has higher value)
         firstHandCards.clear();
@@ -384,8 +388,12 @@ public class PokerManagerTest {
         // first player should win as he has higher rank.
         expResult = 1;
 
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(7, highRank);
+        assertEquals(6, lowRank);
 
         // Straight Flush ,  different value (Second Player has higher value)
         firstHandCards.clear();
@@ -419,8 +427,12 @@ public class PokerManagerTest {
         // second player should win as he has higher rank.
         expResult = -1;
 
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(10, highRank);
+        assertEquals(7, lowRank);
 
     }
 
@@ -439,20 +451,20 @@ public class PokerManagerTest {
         firstHandCards.add(card);
         card = new Card(2, "D");
         firstHandCards.add(card);
-        card = new Card(2, "C");
+        card = new Card(2, "H");
         firstHandCards.add(card);
-        card = new Card(2, "C");
+        card = new Card(2, "S");
         firstHandCards.add(card);
         card = new Card(3, "C");
         firstHandCards.add(card);
 
         card = new Card(2, "D");
         secondHandCards.add(card);
-        card = new Card(2, "D");
+        card = new Card(2, "H");
         secondHandCards.add(card);
         card = new Card(2, "S");
         secondHandCards.add(card);
-        card = new Card(2, "D");
+        card = new Card(2, "C");
         secondHandCards.add(card);
         card = new Card(9, "D");
         secondHandCards.add(card);
@@ -462,8 +474,12 @@ public class PokerManagerTest {
 
         int expResult = 0;
 
-        int result = instance.getWinner(firstPlayer, secondPlayer);
+        int result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        int highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        int lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 2);
+        assertEquals(lowRank, 2);
 
         // Four in Kind , Same max value(First Player has higher value)
         firstHandCards.clear();
@@ -471,7 +487,7 @@ public class PokerManagerTest {
 
         card = new Card(7, "C");
         firstHandCards.add(card);
-        card = new Card(7, "C");
+        card = new Card(7, "D");
         firstHandCards.add(card);
         card = new Card(7, "H");
         firstHandCards.add(card);
@@ -486,7 +502,7 @@ public class PokerManagerTest {
         secondHandCards.add(card);
         card = new Card(6, "D");
         secondHandCards.add(card);
-        card = new Card(6, "D");
+        card = new Card(6, "H");
         secondHandCards.add(card);
         card = new Card(10, "D");
         secondHandCards.add(card);
@@ -497,8 +513,12 @@ public class PokerManagerTest {
         // second player should win as he has higher rank.
         expResult = 1;
 
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 7);
+        assertEquals(lowRank, 6);
 
         // Four in Kind , Same max value(Second Player has higher value)
         firstHandCards.clear();
@@ -506,11 +526,11 @@ public class PokerManagerTest {
 
         card = new Card(7, "C");
         firstHandCards.add(card);
-        card = new Card(7, "C");
+        card = new Card(7, "D");
         firstHandCards.add(card);
         card = new Card(7, "H");
         firstHandCards.add(card);
-        card = new Card(7, "C");
+        card = new Card(7, "S");
         firstHandCards.add(card);
         card = new Card(3, "C");
         firstHandCards.add(card);
@@ -519,11 +539,11 @@ public class PokerManagerTest {
         secondHandCards.add(card);
         card = new Card(10, "S");
         secondHandCards.add(card);
-        card = new Card(10, "D");
+        card = new Card(10, "C");
         secondHandCards.add(card);
         card = new Card(6, "D");
         secondHandCards.add(card);
-        card = new Card(10, "D");
+        card = new Card(10, "H");
         secondHandCards.add(card);
 
         firstPlayer = new Hand(firstHandCards);
@@ -532,8 +552,12 @@ public class PokerManagerTest {
         // second player should win as he has higher rank.
         expResult = -1;
 
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 10);
+        assertEquals(lowRank, 7);
 
     }
 
@@ -573,8 +597,14 @@ public class PokerManagerTest {
         int expResult = 0;
         Hand firstPlayer = new Hand(firstHandCards);
         Hand secondPlayer = new Hand(secondHandCards);
-        int result = instance.getWinner(firstPlayer, secondPlayer);
+
+        int result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        int highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        int lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
+
         assertEquals(expResult, result);
+        assertEquals(highRank, -1);  // indentical values , no need for max / min.
+        assertEquals(lowRank, -1);
 
         firstHandCards.clear();
         secondHandCards.clear();
@@ -605,8 +635,12 @@ public class PokerManagerTest {
         expResult = 1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 11);
+        assertEquals(lowRank, 9);
 
         firstHandCards.clear();
         secondHandCards.clear();
@@ -636,8 +670,12 @@ public class PokerManagerTest {
         expResult = -1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 13);
+        assertEquals(lowRank, 11);
     }
 
     /**
@@ -668,7 +706,7 @@ public class PokerManagerTest {
         secondHandCards.add(card);
         card = new Card(5, "C");
         secondHandCards.add(card);
-        card = new Card(4, "H");
+        card = new Card(4, "S");
         secondHandCards.add(card);
         card = new Card(6, "S");
         secondHandCards.add(card);
@@ -676,8 +714,12 @@ public class PokerManagerTest {
         int expResult = 0;
         Hand firstPlayer = new Hand(firstHandCards);
         Hand secondPlayer = new Hand(secondHandCards);
-        int result = instance.getWinner(firstPlayer, secondPlayer);
+        int result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        int highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        int lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 6);
+        assertEquals(lowRank, 6);
 
         firstHandCards.clear();
         secondHandCards.clear();
@@ -708,8 +750,13 @@ public class PokerManagerTest {
         expResult = 1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 9);
+        assertEquals(lowRank, 5);
 
         firstHandCards.clear();
         secondHandCards.clear();
@@ -739,8 +786,12 @@ public class PokerManagerTest {
         expResult = -1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 11);
+        assertEquals(lowRank, 5);
     }
 
     /**
@@ -753,40 +804,8 @@ public class PokerManagerTest {
         ArrayList<Card> firstHandCards = new ArrayList<>();
         ArrayList<Card> secondHandCards = new ArrayList<>();
 
-        // Flush , Same max value
+        // ThreeInKind , First Win.
         Card card = new Card(2, "C");
-        firstHandCards.add(card);
-        card = new Card(2, "D");
-        firstHandCards.add(card);
-        card = new Card(2, "H");
-        firstHandCards.add(card);
-        card = new Card(3, "S");
-        firstHandCards.add(card);
-        card = new Card(5, "C");
-        firstHandCards.add(card);
-
-        card = new Card(2, "D");
-        secondHandCards.add(card);
-        card = new Card(2, "D");
-        secondHandCards.add(card);
-        card = new Card(2, "C");
-        secondHandCards.add(card);
-        card = new Card(4, "H");
-        secondHandCards.add(card);
-        card = new Card(6, "S");
-        secondHandCards.add(card);
-
-        int expResult = 0;
-        Hand firstPlayer = new Hand(firstHandCards);
-        Hand secondPlayer = new Hand(secondHandCards);
-        int result = instance.getWinner(firstPlayer, secondPlayer);
-        assertEquals(expResult, result);
-
-        firstHandCards.clear();
-        secondHandCards.clear();
-
-        // Flush , First Player have higher value.
-        card = new Card(2, "C");
         firstHandCards.add(card);
         card = new Card(5, "C");
         firstHandCards.add(card);
@@ -808,14 +827,19 @@ public class PokerManagerTest {
         card = new Card(3, "D");
         secondHandCards.add(card);
 
-        expResult = 1;
-        firstPlayer = new Hand(firstHandCards);
-        secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        int expResult = 1;
+        Hand firstPlayer = new Hand(firstHandCards);
+        Hand secondPlayer = new Hand(secondHandCards);
+        int result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        int highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        int lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 5);
+        assertEquals(lowRank, 3);
 
         firstHandCards.clear();
         secondHandCards.clear();
+
         // Flush , Second Player have higher value.
         card = new Card(3, "C");
         firstHandCards.add(card);
@@ -828,7 +852,7 @@ public class PokerManagerTest {
         card = new Card(3, "C");
         firstHandCards.add(card);
 
-        card = new Card(7, "D");
+        card = new Card(7, "H");
         secondHandCards.add(card);
         card = new Card(8, "D");
         secondHandCards.add(card);
@@ -842,8 +866,12 @@ public class PokerManagerTest {
         expResult = -1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 7);
+        assertEquals(lowRank, 3);
     }
 
     /**
@@ -868,13 +896,13 @@ public class PokerManagerTest {
         card = new Card(5, "C");
         firstHandCards.add(card);
 
-        card = new Card(2, "D");
+        card = new Card(2, "H");
         secondHandCards.add(card);
-        card = new Card(2, "D");
+        card = new Card(2, "S");
         secondHandCards.add(card);
         card = new Card(3, "C");
         secondHandCards.add(card);
-        card = new Card(3, "H");
+        card = new Card(3, "D");
         secondHandCards.add(card);
         card = new Card(6, "S");
         secondHandCards.add(card);
@@ -882,8 +910,12 @@ public class PokerManagerTest {
         int expResult = 0;
         Hand firstPlayer = new Hand(firstHandCards);
         Hand secondPlayer = new Hand(secondHandCards);
-        int result = instance.getWinner(firstPlayer, secondPlayer);
+        int result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        int highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        int lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 2);
+        assertEquals(lowRank, 2);
 
         firstHandCards.clear();
         secondHandCards.clear();
@@ -914,11 +946,16 @@ public class PokerManagerTest {
         expResult = 1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 8);
+        assertEquals(lowRank, 5);
 
         firstHandCards.clear();
         secondHandCards.clear();
+
         // Flush , Second Player have higher value value with different pairs.
         card = new Card(3, "C");
         firstHandCards.add(card);
@@ -945,12 +982,17 @@ public class PokerManagerTest {
         expResult = -1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 10);
+        assertEquals(lowRank, 5);
 
         firstHandCards.clear();
         secondHandCards.clear();
-        // Flush , First Player have higher value value with same pair.
+
+        // Flush , First Player have higher second pair .
         card = new Card(3, "C");
         firstHandCards.add(card);
         card = new Card(3, "D");
@@ -962,25 +1004,30 @@ public class PokerManagerTest {
         card = new Card(5, "C");
         firstHandCards.add(card);
 
-        card = new Card(3, "D");
+        card = new Card(3, "S");
         secondHandCards.add(card);
-        card = new Card(3, "D");
+        card = new Card(3, "H");
         secondHandCards.add(card);
         card = new Card(7, "S");
         secondHandCards.add(card);
         card = new Card(4, "D");
         secondHandCards.add(card);
-        card = new Card(4, "D");
+        card = new Card(4, "S");
         secondHandCards.add(card);
 
         expResult = 1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 5);
+        assertEquals(lowRank, 4);
 
         firstHandCards.clear();
         secondHandCards.clear();
+
         // Flush , Second Player have higher value value with same pair.
         card = new Card(3, "C");
         firstHandCards.add(card);
@@ -993,22 +1040,26 @@ public class PokerManagerTest {
         card = new Card(5, "C");
         firstHandCards.add(card);
 
-        card = new Card(3, "D");
+        card = new Card(3, "H");
         secondHandCards.add(card);
-        card = new Card(3, "D");
+        card = new Card(3, "S");
         secondHandCards.add(card);
         card = new Card(7, "S");
         secondHandCards.add(card);
         card = new Card(8, "D");
         secondHandCards.add(card);
-        card = new Card(8, "D");
+        card = new Card(8, "S");
         secondHandCards.add(card);
 
         expResult = -1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 8);
+        assertEquals(lowRank, 5);
     }
 
     /**
@@ -1021,7 +1072,7 @@ public class PokerManagerTest {
         ArrayList<Card> firstHandCards = new ArrayList<>();
         ArrayList<Card> secondHandCards = new ArrayList<>();
 
-        // Two Pairs , Same Pairs
+        // Pair , Same Pairs
         Card card = new Card(2, "C");
         firstHandCards.add(card);
         card = new Card(2, "D");
@@ -1033,30 +1084,35 @@ public class PokerManagerTest {
         card = new Card(5, "C");
         firstHandCards.add(card);
 
-        card = new Card(2, "D");
+        card = new Card(2, "H");
         secondHandCards.add(card);
-        card = new Card(2, "D");
+        card = new Card(2, "S");
         secondHandCards.add(card);
-        card = new Card(5, "C");
+        card = new Card(5, "S");
         secondHandCards.add(card);
-        card = new Card(7, "H");
+        card = new Card(7, "D");
         secondHandCards.add(card);
-        card = new Card(3, "S");
+        card = new Card(3, "D");
         secondHandCards.add(card);
 
         int expResult = 0;
         Hand firstPlayer = new Hand(firstHandCards);
         Hand secondPlayer = new Hand(secondHandCards);
-        int result = instance.getWinner(firstPlayer, secondPlayer);
+        int result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        int highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        int lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
+
         assertEquals(expResult, result);
+        assertEquals(highRank, 7);
+        assertEquals(lowRank, 7);
 
         firstHandCards.clear();
         secondHandCards.clear();
 
-        // Flush , First Player have higher pair value
+        // Pair , First Player have higher pair value
         card = new Card(8, "C");
         firstHandCards.add(card);
-        card = new Card(8, "C");
+        card = new Card(8, "D");
         firstHandCards.add(card);
         card = new Card(3, "D");
         firstHandCards.add(card);
@@ -1065,13 +1121,13 @@ public class PokerManagerTest {
         card = new Card(4, "C");
         firstHandCards.add(card);
 
-        card = new Card(3, "D");
+        card = new Card(3, "H");
         secondHandCards.add(card);
         card = new Card(3, "S");
         secondHandCards.add(card);
         card = new Card(6, "C");
         secondHandCards.add(card);
-        card = new Card(8, "D");
+        card = new Card(8, "H");
         secondHandCards.add(card);
         card = new Card(5, "D");
         secondHandCards.add(card);
@@ -1079,12 +1135,17 @@ public class PokerManagerTest {
         expResult = 1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 8);
+        assertEquals(lowRank, 3);
 
         firstHandCards.clear();
         secondHandCards.clear();
-        // Flush , Second Player have higher pair value
+
+        // Pair  , Second Player have higher pair value
         card = new Card(3, "C");
         firstHandCards.add(card);
         card = new Card(3, "D");
@@ -1100,7 +1161,7 @@ public class PokerManagerTest {
         secondHandCards.add(card);
         card = new Card(8, "D");
         secondHandCards.add(card);
-        card = new Card(7, "S");
+        card = new Card(7, "H");
         secondHandCards.add(card);
         card = new Card(10, "D");
         secondHandCards.add(card);
@@ -1110,12 +1171,17 @@ public class PokerManagerTest {
         expResult = -1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 10);
+        assertEquals(lowRank, 3);
 
         firstHandCards.clear();
         secondHandCards.clear();
-        // Flush , First Player have higher value value with same pair.
+
+        // Pair  , First Player have higher second value  with same pair.
         card = new Card(5, "C");
         firstHandCards.add(card);
         card = new Card(5, "D");
@@ -1127,9 +1193,9 @@ public class PokerManagerTest {
         card = new Card(9, "C");
         firstHandCards.add(card);
 
-        card = new Card(5, "D");
+        card = new Card(5, "C");
         secondHandCards.add(card);
-        card = new Card(5, "D");
+        card = new Card(5, "H");
         secondHandCards.add(card);
         card = new Card(2, "S");
         secondHandCards.add(card);
@@ -1141,12 +1207,17 @@ public class PokerManagerTest {
         expResult = 1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 9);
+        assertEquals(lowRank, 4);
 
         firstHandCards.clear();
         secondHandCards.clear();
-        // Flush , Second Player have higher value value with same pair.
+
+        // Pair , Second Player have higher value  with same pair.
         card = new Card(3, "C");
         firstHandCards.add(card);
         card = new Card(3, "D");
@@ -1158,9 +1229,9 @@ public class PokerManagerTest {
         card = new Card(5, "C");
         firstHandCards.add(card);
 
-        card = new Card(3, "D");
+        card = new Card(3, "H");
         secondHandCards.add(card);
-        card = new Card(3, "D");
+        card = new Card(3, "S");
         secondHandCards.add(card);
         card = new Card(7, "S");
         secondHandCards.add(card);
@@ -1172,8 +1243,12 @@ public class PokerManagerTest {
         expResult = -1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 9);
+        assertEquals(lowRank, 5);
     }
 
     /**
@@ -1189,9 +1264,9 @@ public class PokerManagerTest {
         // High Card , Same max value for all cards
         Card card = new Card(2, "C");
         firstHandCards.add(card);
-        card = new Card(6, "D");
+        card = new Card(6, "H");
         firstHandCards.add(card);
-        card = new Card(4, "H");
+        card = new Card(4, "F");
         firstHandCards.add(card);
         card = new Card("J", "S");
         firstHandCards.add(card);
@@ -1212,14 +1287,18 @@ public class PokerManagerTest {
         int expResult = 0;
         Hand firstPlayer = new Hand(firstHandCards);
         Hand secondPlayer = new Hand(secondHandCards);
-        int result = instance.getWinner(firstPlayer, secondPlayer);
+        int result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        int highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        int lowRank = instance.getWinner(firstPlayer, secondPlayer)[1];
         assertEquals(expResult, result);
+        assertEquals(highRank, -1);
+        assertEquals(lowRank, -1);
 
         firstHandCards.clear();
         secondHandCards.clear();
 
         // Flush , First Player have higher value.
-        card = new Card(14, "C");
+        card = new Card("A", "C");
         firstHandCards.add(card);
         card = new Card(8, "C");
         firstHandCards.add(card);
@@ -1234,7 +1313,7 @@ public class PokerManagerTest {
         secondHandCards.add(card);
         card = new Card(6, "S");
         secondHandCards.add(card);
-        card = new Card(8, "C");
+        card = new Card(8, "H");
         secondHandCards.add(card);
         card = new Card(9, "D");
         secondHandCards.add(card);
@@ -1244,8 +1323,12 @@ public class PokerManagerTest {
         expResult = 1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
         assertEquals(expResult, result);
+        assertEquals(highRank, 14);
+        assertEquals(lowRank, 9);
 
         firstHandCards.clear();
         secondHandCards.clear();
@@ -1275,11 +1358,17 @@ public class PokerManagerTest {
         expResult = -1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
+
         assertEquals(expResult, result);
+        assertEquals(highRank, 14);
+        assertEquals(lowRank, 9);
 
         firstHandCards.clear();
         secondHandCards.clear();
+
         // High Card , Same max first max value but first has higher second value
         card = new Card(2, "C");
         firstHandCards.add(card);
@@ -1292,13 +1381,13 @@ public class PokerManagerTest {
         card = new Card(8, "C");
         firstHandCards.add(card);
 
-        card = new Card(6, "D");
+        card = new Card(6, "H");
         secondHandCards.add(card);
         card = new Card(2, "D");
         secondHandCards.add(card);
         card = new Card("J", "C");
         secondHandCards.add(card);
-        card = new Card(4, "H");
+        card = new Card(4, "S");
         secondHandCards.add(card);
         card = new Card(7, "S");
         secondHandCards.add(card);
@@ -1306,16 +1395,21 @@ public class PokerManagerTest {
         expResult = 1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
+
         assertEquals(expResult, result);
+        assertEquals(highRank, 8);
+        assertEquals(lowRank, 7);
 
         firstHandCards.clear();
         secondHandCards.clear();
 
-        // High Card , Same max two values   but first has higher third value
+        // High Card , Same max first three values but first player has higher forth value
         card = new Card(2, "C");
         firstHandCards.add(card);
-        card = new Card(6, "D");
+        card = new Card(6, "C");
         firstHandCards.add(card);
         card = new Card(4, "H");
         firstHandCards.add(card);
@@ -1338,8 +1432,13 @@ public class PokerManagerTest {
         expResult = 1;
         firstPlayer = new Hand(firstHandCards);
         secondPlayer = new Hand(secondHandCards);
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        highRank = instance.getWinner(firstPlayer, secondPlayer)[1];
+        lowRank = instance.getWinner(firstPlayer, secondPlayer)[2];
+
         assertEquals(expResult, result);
+        assertEquals(highRank, 4);
+        assertEquals(lowRank, 3);
 
     }
 
@@ -1353,56 +1452,57 @@ public class PokerManagerTest {
         int expResult = -1;
         Hand firstPlayer = new Hand(testUtil.getHighCard());
         Hand secondPlayer = new Hand(testUtil.getPairCard());
-        int result = instance.getWinner(firstPlayer, secondPlayer);
+        int result = instance.getWinner(firstPlayer, secondPlayer)[0];
         assertEquals(expResult, result);
 
         // First Player Pair ,  Second Player Two Pair
         expResult = -1;
         firstPlayer = new Hand(testUtil.getPairCard());
         secondPlayer = new Hand(testUtil.getTwoPairsCard());
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
         assertEquals(expResult, result);
 
         // First Player Two Pairs , Second Player Three of Kind.
         expResult = -1;
         firstPlayer = new Hand(testUtil.getTwoPairsCard());
         secondPlayer = new Hand(testUtil.getThreeOfKind());
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
         assertEquals(expResult, result);
 
         // First Player Three of Kind.  , Second Player Straight
         expResult = -1;
         firstPlayer = new Hand(testUtil.getThreeOfKind());
         secondPlayer = new Hand(testUtil.getStraightCard());
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
         assertEquals(expResult, result);
 
         // First Player Straight , Second Player Flush
         expResult = -1;
         firstPlayer = new Hand(testUtil.getStraightCard());
         secondPlayer = new Hand(testUtil.getFlushCard());
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
         assertEquals(expResult, result);
 
         // First Player Flush , Second Player Full House
         expResult = -1;
         firstPlayer = new Hand(testUtil.getFlushCard());
         secondPlayer = new Hand(testUtil.getFullHouse());
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
         assertEquals(expResult, result);
 
         // First Player Full House , Second Player Four of Kind
         expResult = -1;
         firstPlayer = new Hand(testUtil.getFullHouse());
         secondPlayer = new Hand(testUtil.getFourOfKind());
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
         assertEquals(expResult, result);
 
         // First Player Full House , Second Player Four of Kind
         expResult = -1;
         firstPlayer = new Hand(testUtil.getFourOfKind());
         secondPlayer = new Hand(testUtil.getStraightFlush());
-        result = instance.getWinner(firstPlayer, secondPlayer);
+        result = instance.getWinner(firstPlayer, secondPlayer)[0];
+        assertEquals(expResult, result);
     }
 
 }

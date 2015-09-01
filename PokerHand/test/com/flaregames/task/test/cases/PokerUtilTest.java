@@ -210,6 +210,8 @@ public class PokerUtilTest {
 
         result = instance.countPairs(twoValues);
         assertEquals(2, result);
+        
+       
 
     }
 
@@ -222,25 +224,28 @@ public class PokerUtilTest {
         int[] values = {1, 6, 9, 3, 4};
         int[] values2 = {1, 6, 9, 10, 4};
 
-        int result = instance.compareArray(values, values2);
+        int result = instance.compareArray(values, values2)[0];
+        int max = instance.compareArray(values, values2)[1];
+
         assertEquals(-1, result);
+        assertEquals(10, max);
 
         int[] newValues = {1, 10, 9, 1, 4};
         int[] newValues2 = {1, 6, 9, 1, 4};
 
-        result = instance.compareArray(newValues, newValues2);
+        result = instance.compareArray(newValues, newValues2)[0];;
+        max = instance.compareArray(newValues, newValues2)[1];
         assertEquals(1, result);
+        assertEquals(10, max);
 
         int[] equalValues = {1, 10, 9, 1, 4};
         int[] equalValues2 = {1, 10, 9, 1, 4};
 
-        result = instance.compareArray(equalValues, equalValues2);
+        result = instance.compareArray(equalValues, equalValues2)[0];
+        max = instance.compareArray(equalValues, equalValues2)[1];
         assertEquals(0, result);
+        assertEquals(-1, max);
 
-        int[] twoValues = {1, 1, 9, 1, 1};
-
-        result = instance.countPairs(twoValues);
-        assertEquals(2, result);
 
     }
 
