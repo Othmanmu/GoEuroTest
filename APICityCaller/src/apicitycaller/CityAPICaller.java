@@ -66,7 +66,7 @@ public class CityAPICaller {
                 cvsFile.append("name").append(",");
                 cvsFile.append("type").append(",");
                 cvsFile.append("latitude").append(",");
-                cvsFile.append("latitude").append("\n");
+                cvsFile.append("longitude").append("\n");
                 // loop over retrieved json response.
                 for (int i = 0; i < json.size(); i++) {
                     JSONObject object = (JSONObject) json.get(i);
